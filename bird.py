@@ -1,5 +1,5 @@
 import pygame
-import pandas
+
 pygame.init()
 
 

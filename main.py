@@ -19,7 +19,7 @@ gapSize = 200
 loopCount = 0
 
 def lose():
-    font = pygame.font.Sysfont(None, 70)
+    font = pygame.font.sys_fonts(None, 70)
     text = font.render("You died!", True, (0,0,255))
     text_rect=text.get_rect()
     text_rect.center = (width/2, height/2)
@@ -37,9 +37,9 @@ def main():
     global loopCount
     while True:
         clock.tick(60)
-        if loopCount % 90 == 0:
-            topPos = random.randint(0, height/2) - 400
-            pipes.add(Pipe((width + 100, topPos + gapSize + 800)))
+        if loopCount % 60 == 0:
+            topPos = random.randint(0, 200)
+            pipes.add(Pipe((width + 100, topPos + gapSize + 380)))
             pipes.add(Pipe((width + 100, topPos), True))
         for event in pygame.event.get():
             if event.type== pygame.QUIT:
@@ -47,18 +47,18 @@ def main():
             if event.type== pygame.KEYDOWN:
                 if event.key == pygame.K_SPACE:
                     player.speed[1] = -10
-            player.update()
-            pipes.update()
-            gets_hit = pygame.sprite.spritecollide(player,pipes,False) \
+        player.update()
+        pipes.update()
+        gets_hit = pygame.sprite.spritecollide(player,pipes,False) \
                 or player.rect.center[1] > height
-            window.blit(background,[0,0])
-            pipes.draw(window)
-            window.blit(player.image,player.rect)
-            pygame.display.flip()
-            loopCount+=1
+        window.blit(background,[0,0])
+        pipes.draw(window)
+        window.blit(player.image,player.rect)
+        pygame.display.flip()
+        loopCount+=1
 
-            if gets_hit:
-                lose()
+        if gets_hit:
+            lose()
 if __name__ == '__main__':
     main()
 
